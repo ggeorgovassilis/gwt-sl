@@ -1,8 +1,0 @@
-com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException, true
-com.google.gwt.user.client.rpc.SerializableException, true
-java.lang.String, true
-java.util.ArrayList, true
-org.gwtwidgets.server.spring.test.client.GWTSerialisableObject, true
-org.gwtwidgets.server.spring.test.client.JavaSerialisableObject, true
-org.gwtwidgets.server.spring.test.domain.ProductOrder, true
-org.gwtwidgets.server.spring.test.domain.Product, true

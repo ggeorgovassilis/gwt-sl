@@ -1,1 +1,0 @@
-5|0|5|http://localhost:8080/gwt-sl-0.1.5/static/|3916CE3002BCAEE687EA42DA24F45F89|org.gwtwidgets.server.spring.test.server.ServiceTest|add|I|1|2|3|4|2|5|5|3|4|
