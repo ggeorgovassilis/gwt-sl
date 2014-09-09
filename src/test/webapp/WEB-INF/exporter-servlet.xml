@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- 
+	Copyright 2007 George Georgovassilis <g.georgovassilis[at]gmail.com>
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+
+<beans>
+
+	<!-- 
+		Example on how to use the RPCServiceExporter. This one is a controller that behaves just like a simple
+		Spring controller and needs to be mapped to URLs the same way any other Spring controller is mapped.
+		This would in most cases be the SimpleUrlHandlerMapping.
+	-->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<map>
+				<entry key="/service" value-ref="RPCTest" />
+				<entry key="/tx" value-ref="RPCTestTx" />
+				<entry key="/pojo" value-ref="RPCTestPOJO" />
+				<entry key="/extended" value-ref="RPCTestExtended" />
+			</map>
+		</property>
+	</bean>
+	<bean id="RPCExporter" abstract="true" class="org.gwtwidgets.server.spring.GWTRPCServiceExporter"/>
+
+	<!-- 
+		Here follow the declarations of the controllers which wrap around RPC service beans (declared in application-context.xml)
+	-->
+
+	<bean id="RPCTestPOJO" parent="RPCExporter">
+		<property name="service" ref="ServiceTestPOJO" />
+		<property name="serviceInterfaces">
+			<value>
+				org.gwtwidgets.server.spring.test.server.ServiceTest
+			</value>
+		</property>
+	</bean>
+
+	<bean id="RPCTest" parent="RPCExporter">
+		<property name="service" ref="ServiceTestImpl" />
+	</bean>
+
+	<bean id="RPCTestTx" parent="RPCExporter">
+		<property name="service" ref="ServiceTestTx" />
+	</bean>
+
+	<bean id="RPCTestExtended" parent="RPCExporter">
+		<property name="service" ref="ExtendedServiceTest" />
+	</bean>
+
+</beans>

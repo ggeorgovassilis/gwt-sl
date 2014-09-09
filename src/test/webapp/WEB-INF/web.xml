@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app SYSTEM "web-app_2_3.dtd">
+<web-app>
+	<display-name>GWT-SL unit test</display-name>
+	<description>
+		Unit test web application for the GWT-SL. Navigate to index.html
+		to execute the client application which runs in the browser and
+		invokes various Spring managed services via RPC.
+	</description>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>NoCachingFilter</filter-name>
+		<filter-class>org.gwtwidgets.server.filters.ResponseHeaderFilter</filter-class>
+		<init-param>
+			<param-name>Expires</param-name>
+			<param-value>Di, 1 Jul 2008 12:00:00 GMT</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Cache-Control</param-name>
+			<param-value>no-cache, must-revalidate</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Pragma</param-name>
+			<param-value>no-cache</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>NoCachingFilter</filter-name>
+		<servlet-name>stream</servlet-name>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+
+
+	<!-- 
+		Mapping the GWTHandler
+	-->
+	<servlet>
+		<servlet-name>handler</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 
+		Mapping the GWTRPCServiceExporter
+	-->
+
+	<servlet>
+		<servlet-name>exporter</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 
+		Mapping annotations processing
+	-->
+	<servlet>
+		<servlet-name>annotation</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 
+		Mapping HTTPStream
+	-->
+
+	<servlet>
+		<servlet-name>stream</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- 
+		Mapping the default servlet for static resource delivery
+	-->
+	<servlet>
+		<servlet-name>defaultservlet</servlet-name>
+		<servlet-class>
+			org.apache.catalina.servlets.DefaultServlet
+		</servlet-class>
+		<init-param>
+			<param-name>listings</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>handler</servlet-name>
+		<url-pattern>/handler/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>exporter</servlet-name>
+		<url-pattern>/exporter/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>annotation</servlet-name>
+		<url-pattern>/annotation/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>stream</servlet-name>
+		<url-pattern>/stream/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>
