@@ -1,4 +1,4 @@
-gwt-sl
+Server Library for GWT- Reference Documentation v1.5
 ======
 
 The GWT Server Library is a collection of Java server side components for the Google Web Toolkit AJAX framework with the current focus on the Spring framework by facilitating publishing of Spring beans as RPC services.
@@ -6,18 +6,17 @@ The GWT Server Library is a collection of Java server side components for the Go
 Features
 
 * Binding POJOs to RPC in both annotation and XML driven declarations
-* Exposing Hibernate managed object to RPC via Gilead
 * Servlet filters for manipulating HTTP headers
 * Extensive documentation and high degree of maturity 
 
 This project used to be hosted at Sourceforge as part of the [GWT Widget Library](http://gwt-widget.sourceforge.net/), later at [Google Code](https://code.google.com/p/gwt-sl/) and has now moved to [Github](https://github.com/ggeorgovassilis/gwt-sl).
 
-# Server Library for GWT- Reference Documentation v1.5
-
 ## <a name="TOC"></a>0. Table of Contents
 
 * [0. Table of contents](#TOC)
+
 * [1. Changelog](#Changelog)
+
 * [2. General overview](#Overview)
 * [2.1. Quickstart](#Quickstart)
 * [3. Publishing beans as RPC services](#RPC)
@@ -34,8 +33,7 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [4.7 Do more things with Serialization Policies](#SerializationPolicyProvider)
 * [4.8 Use multiple serialization policies](#MultipleSerializationPolicies)
 
-*   [5. FAQ](#FAQ)
-
+* [5. FAQ](#FAQ)
 * [I am seeing a `java.lang.NoClassDefFoundError` although the class/jar is there!](#Classloading)
 * [My application runs on a 1.4 JRE and I'm getting a `ClassFormatError`](#java14)
 * [I am getting a `java.lang.reflect.InvocationTargetException`](#InvocationTargetException)
@@ -45,6 +43,7 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [RPCs are always returning the same objects to the client](#CachedRPC)
 * [I am getting a `NullPointerException` in `GenericServlet`](#NoRPCInAppContext)
 * [I am getting something about `SomeClass_gilead_15` and serialization policy](#GileadNoPolicy)
+
 * [6. Links and Resources](#Resources)
 
 ## <a name="Changelog"></a>1. Changelog
@@ -283,9 +282,7 @@ the client application running in a browser will access this interface also (its
 ServiceTest.java :
 
 ```java
-
 package org.gwtwidgets.server.spring.test.server;
-
 import com.google.gwt.user.client.rpc.RemoteService;
 
 public interface ServiceTest extends RemoteService{
@@ -298,9 +295,7 @@ The implementation is free of any dependencies on Spring, GWT or the servlet API
 ServiceTestImpl.java :
 
 ```java
-
 package org.gwtwidgets.server.spring.test.serverimpl;
-
 import org.gwtwidgets.server.spring.test.server.ServiceTest;
 
 public class ServiceTestImpl implements ServiceTest{
@@ -399,7 +394,7 @@ Now, with Spring and the SL, there are a few more steps which are performed by t
 <tr class="inBrowser"><td>7.</td><td colspan="4">Browser decodes the RPC payload and invokes the service callback</td></tr>
 </table>
 
-## <a name="GWTRPCServiceExporter"></a>3.1 Publishing POJOs as services - `GWTRPCServiceExporter`
+## <a name="GWTRPCServiceExporter"></a>3.1 Publishing POJOs as services - GWTRPCServiceExporter
 
 The `GWTRPCServiceExporter` is the purist's take at developing services since it does not introduce any API and compile
 time dependency to your service. Essentially it is a wrapper which exports any POJO as an RPC service. In order for the
@@ -486,7 +481,7 @@ your service has the corresponding methods with a matching signature.
   </bean>
 ```
 
-## <a name="GWTHandler"></a>3.2 Publishing multiple beans - `GWTHandler`
+## <a name="GWTHandler"></a>3.2 Publishing multiple beans - GWTHandler
 
 The `GWTHandler` allows you to quickly map multiple RPC service beans to different URLs
 very similar to the way Spring's `SimpleUrlHandlerMapping` maps URLs to controllers. The
@@ -1002,20 +997,12 @@ interested in resolving this issue, please consider voting for [issue 3849](http
 
 ## <a name="Resources"></a>6. Links and Resources
 
-1. Project homepage [http://gwt-widget.sourceforge.net/](http://gwt-widget.sourceforge.net/)
+1. Project homepage [https://github.com/ggeorgovassilis/gwt-sl](https://github.com/ggeorgovassilis/gwt-sl)
 
 2. User group [http://groups.google.com/group/gwt-sl/topics](http://groups.google.com/group/gwt-sl/topics)
 
-3. Spring project homepage [http://springframework.org/](http://springframework.org/)
+3. Spring project homepage [http://spring.io/](http://spring.io/)
 
-4. Hibernate project homepage [http://hibernate.org/](http://hibernate.org/)
+4. GWT homepage [http://www.gwtproject.org/](http://www.gwtproject.org/)
 
-5. GWT homepage [http://code.google.com/webtoolkit/](http://code.google.com/webtoolkit/)
-
-6. Gilead homepage [http://noon.gilead.free.fr/gilead/](http://noon.gilead.free.fr/gilead/)
-
-7. Hibernate4GWT project homepage [http://hibernate4gwt.sourceforge.net/](http://hibernate4gwt.sourceforge.net/)
-
-8. Security with GWT [https://groups.google.com/group/google-web-toolkit/web/security-for-gwt-applications](https://groups.google.com/group/google-web-toolkit/web/security-for-gwt-applications)
-
-9. Inline GWT serialized data for reduced page load time [http://jectbd.com/?p=1174](http://jectbd.com/?p=1174)
+5. Inline GWT serialized data for reduced page load time [http://jectbd.com/?p=1174](http://jectbd.com/?p=1174)
