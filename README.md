@@ -30,7 +30,7 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [4.7 Do more things with Serialization Policies](#SerializationPolicyProvider)
 * [4.8 Use multiple serialization policies](#MultipleSerializationPolicies)
 * [5. FAQ](#FAQ)
-* [I am seeing a `java.lang.NoClassDefFoundError` although the class/jar is there!](#Classloading)
+    * [I am seeing a `java.lang.NoClassDefFoundError` although the class/jar is there!](#Classloading)
 * [My application runs on a 1.4 JRE and I'm getting a `ClassFormatError`](#java14)
 * [I am getting a `java.lang.reflect.InvocationTargetException`](#InvocationTargetException)
 * [RPC to my services don't work, I'm getting a `404` but no exception in the server log](#404)
