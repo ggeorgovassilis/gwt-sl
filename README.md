@@ -42,7 +42,7 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 
 ## <a name="Changelog"></a>1. Changelog
 
-#### GWT-SL 1.4
+#### GWT-SL 1.5
 
 * Moved project to github
 * Upgraded GWT and Spring dependencies
