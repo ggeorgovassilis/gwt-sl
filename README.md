@@ -14,16 +14,13 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 ## <a name="TOC"></a>0. Table of Contents
 
 * [0. Table of contents](#TOC)
-
 * [1. Changelog](#Changelog)
-
 * [2. General overview](#Overview)
 * [2.1. Quickstart](#Quickstart)
 * [3. Publishing beans as RPC services](#RPC)
 * [3.1 Publishing POJOs as services - `GWTRPCServiceExporter`](#GWTRPCServiceExporter)
 * [3.2 Publishing multiple beans - `GWTHandler`](#GWTHandler)
 * [3.3 Extending a base class - `GWTSpringController`](#GWTSpringController)
-
 * [4. How to](#HowTo)
 * [4.1 Exception translation](#ExceptionTranslation)
 * [4.2 Accessing the Servlet API from inside a service](#ServletAPI)
@@ -32,7 +29,6 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [4.6 Decrease RPC payload size](#ObfuscatedTypeNames)
 * [4.7 Do more things with Serialization Policies](#SerializationPolicyProvider)
 * [4.8 Use multiple serialization policies](#MultipleSerializationPolicies)
-
 * [5. FAQ](#FAQ)
 * [I am seeing a `java.lang.NoClassDefFoundError` although the class/jar is there!](#Classloading)
 * [My application runs on a 1.4 JRE and I'm getting a `ClassFormatError`](#java14)
@@ -42,7 +38,6 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [Why does my project not run with the hosted mode browser?](#Hosted)
 * [RPCs are always returning the same objects to the client](#CachedRPC)
 * [I am getting a `NullPointerException` in `GenericServlet`](#NoRPCInAppContext)
-
 * [6. Links and Resources](#Resources)
 
 ## <a name="Changelog"></a>1. Changelog
