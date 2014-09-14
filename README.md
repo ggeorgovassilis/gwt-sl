@@ -1010,5 +1010,3 @@ declared in the application context to lack the servlet configuration and thus p
 3. Spring project homepage [http://spring.io/](http://spring.io/)
 
 4. GWT homepage [http://www.gwtproject.org/](http://www.gwtproject.org/)
-
-5. Inline GWT serialized data for reduced page load time [http://jectbd.com/?p=1174](http://jectbd.com/?p=1174)
