@@ -894,8 +894,8 @@ request about the serialization policy to use.
 
 ## <a name="MultipleSerializationPolicies"></a>4.8 Use multiple serialization policies
 
-In case you'd like to use multiple serialization policies at the same time, I strongly recommend Alex Moffat's excelent
-[article](http://jectbd.com/?p=1174) on that matter which also provides ready to be used code for your use case.
+In case you'd like to use multiple serialization policies at the same time, I strongly recommend Alex Moffat's excellent
+LINK_MISSING on that matter which also provides ready to be used code for your use case.
 
 ## <a name="FAQ"></a>5. FAQ
 
