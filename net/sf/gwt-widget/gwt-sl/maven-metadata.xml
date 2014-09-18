@@ -3,10 +3,9 @@
   <groupId>net.sf.gwt-widget</groupId>
   <artifactId>gwt-sl</artifactId>
   <versioning>
-    <release>1.5</release>
     <versions>
-      <version>1.5</version>
+      <version>1.6-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20140909151853</lastUpdated>
+    <lastUpdated>20140918120953</lastUpdated>
   </versioning>
 </metadata>
