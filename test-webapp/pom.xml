@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.gwt-widget</groupId>
+	<artifactId>test-webapp</artifactId>
+	<name>gwt-sl-test-webapp</name>
+	<packaging>war</packaging>
+
+	<url>https://github.com/ggeorgovassilis/gwt-sl</url>
+	<version>1.6</version>
+	<description>
+		Test project for the gwt-sl. Don't include this as a dependency or anything else.
+	</description>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<id>ggeorgovassilis</id>
+			<name>George Georgovassilis</name>
+			<email>g.georgovassilis_gmail.com</email>
+			<url>http://georgovassilis.blogspot.com/</url>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+	</developers>
+	<properties>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>compile</scope><!-- yes, compile. The entire thing is a test project. -->
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+		</dependency>
+
+		<!-- GWT dependencies (from central repo) -->
+		<dependency>
+			<groupId>net.sf.gwt-widget</groupId>
+			<artifactId>gwt-sl</artifactId>
+			<version>1.6-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<!-- other dependencies go here -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>3.2.11.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.2.11.RELEASE</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.8.1</version>
+				<configuration>
+					<excludes>
+						<exclude>**/TestResourceLoader.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>2.6.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>test</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<draftCompile>true</draftCompile>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.10-SNAPSHOT</version>
+				<configuration>
+					<message>Maven artifacts for ${project.version}</message>
+					<!-- disable webpage processing -->
+					<noJekyll>true</noJekyll>
+					<!-- matches distribution management repository url above -->
+					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+					<!-- remote branch name -->
+					<branch>refs/heads/mvn-repo</branch>
+					<!-- If you remove this then the old artifact will be removed and new 
+						one will replace. But with the merge tag you can just release by changing 
+						the version -->
+					<merge>true</merge>
+					<includes>
+						<include>**/*</include>
+					</includes>
+					<!-- github repo name -->
+					<repositoryName>gwt-sl</repositoryName>
+					<!-- github username -->
+					<repositoryOwner>ggeorgovassilis</repositoryOwner>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
