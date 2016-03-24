@@ -10,6 +10,16 @@ import static org.junit.Assert.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Integration test that runs a tomcat, deploys the GWT web applications,
+ * hits it with an htmlunit browser and checks that the web applications
+ * runs in the browser as expected. The test web application loads the
+ * GWT compiled applications and communicates rather heavily with the
+ * server over RPC, testing GWT-SL Spring integration.
+ * @author George Georgovassilis, g.georgovassilis[at]gmail.com
+ *
+ */
+
 @Category(WebserverTest.class)
 public class IntegrationTest extends BaseIntegrationTest{
 

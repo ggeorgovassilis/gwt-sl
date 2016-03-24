@@ -1,17 +1,12 @@
 package org.gwtwidgets.server.spring.integrationtests;
 
 import java.io.File;
-import java.net.URL;
-import java.util.List;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
 
 import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -19,8 +14,12 @@ import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.SilentCssErrorHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+/**
+ * Base class for integration tests which starts an embedded tomcat.
+ * @author George Georgovassilis, g.georgovassilis[at]gmail.com
+ *
+ */
 public abstract class BaseIntegrationTest {
 
 	public final String WEBAPP_BASE = "/test-webapp";
