@@ -18,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -159,11 +160,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 			throw new RuntimeException(e);
 	}
 
-	/*
-	 * Concurrent put/get invocations are reasonably safe in this use case on an
-	 * ImmutableCopyMap.
-	 */
-	protected Map<Method, Method> methodCache = new ImmutableCopyMap<Method, Method>();
+	protected Map<Method, Method> methodCache = new ConcurrentHashMap<Method, Method>();
 
 	/**
 	 * Disables HTTP response caching by modifying response headers for browsers.
