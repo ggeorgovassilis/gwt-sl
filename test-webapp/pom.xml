@@ -8,12 +8,18 @@
 	<artifactId>test-webapp</artifactId>
 	<name>gwt-sl-test-webapp</name>
 	<packaging>war</packaging>
-
 	<url>https://github.com/ggeorgovassilis/gwt-sl</url>
-	<version>1.6</version>
+	<version>1.7</version>
 	<description>
 		Test project for the gwt-sl. Don't include this as a dependency or anything else.
 	</description>
+
+	<properties>
+		<github.global.server>github</github.global.server>
+		<java.version>1.7</java.version>
+	</properties>
+
+
 
 	<licenses>
 		<license>
@@ -33,10 +39,6 @@
 			</roles>
 		</developer>
 	</developers>
-	<properties>
-		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
-		<github.global.server>github</github.global.server>
-	</properties>
 
 	<dependencies>
 
@@ -51,35 +53,29 @@
 			<artifactId>hsqldb</artifactId>
 			<version>1.8.0.10</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>4.2.5.RELEASE</version>
+		</dependency>
 
 		<!-- GWT dependencies (from central repo) -->
 		<dependency>
 			<groupId>net.sf.gwt-widget</groupId>
 			<artifactId>gwt-sl</artifactId>
-			<version>1.6-SNAPSHOT</version>
+			<version>1.7-SNAPSHOT</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>2.6.1</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>2.6.1</version>
-		</dependency>
-		<!-- other dependencies go here -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>3.2.11.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>3.2.11.RELEASE</version>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -95,8 +91,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -124,23 +120,9 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>2.6.1</version>
+				<version>2.7.0</version>
 				<executions>
 					<execution>
 						<goals>
@@ -156,7 +138,7 @@
 			<plugin>
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
-				<version>0.10-SNAPSHOT</version>
+				<version>0.12</version>
 				<configuration>
 					<message>Maven artifacts for ${project.version}</message>
 					<!-- disable webpage processing -->
