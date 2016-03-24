@@ -23,8 +23,8 @@ import java.util.Set;
  * are unsafe to use concurrently.
  * @author g.georgovassilis[at]gmail.com
  *
- * @param <K>
- * @param <V>
+ * @param <K> Key type
+ * @param <V> Value type
  */
 public class ImmutableCopyMap<K, V> implements java.util.Map<K, V>{
 

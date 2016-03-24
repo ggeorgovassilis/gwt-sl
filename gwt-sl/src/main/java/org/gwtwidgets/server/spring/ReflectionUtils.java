@@ -34,7 +34,7 @@ public class ReflectionUtils {
 	 * Return array of all interfaces that are implemented by clazz and extend
 	 * {@link RemoteService}.
 	 * 
-	 * @param clazz
+	 * @param clazz Class to scan for interfaces
 	 * @return Array of interfaces. May be empty but never null.
 	 */
 	@SuppressWarnings("unchecked")
@@ -53,8 +53,8 @@ public class ReflectionUtils {
 	 * method in the Collections class, but that breaks GWT-SL 1.4
 	 * compatibility.
 	 * 
-	 * @param set
-	 * @param elements
+	 * @param set Set of classes
+	 * @param elements Elements in this array will be added to the set
 	 */
 	public static void addAll(Set<Class<?>> set, Class<?>[] elements) {
 		for (Class<?> element : elements)
@@ -65,7 +65,7 @@ public class ReflectionUtils {
 	 * Return all interfaces that are implemented by this class, traversing
 	 * super classes and super interfaces.
 	 * 
-	 * @param c
+	 * @param c Class to scan
 	 * @return Set of classes. May be empty but not null.
 	 */
 	public static Set<Class<?>> getInterfaces(Class<?> c) {
@@ -100,9 +100,10 @@ public class ReflectionUtils {
 	 * @param serviceInterfaces
 	 *            The requested method must exist on at least one of the
 	 *            interfaces
-	 * @param method
+	 * @param method Method to look for
 	 * @return Method on 'service' or else a {@link NoSuchMethodException} is
 	 *         thrown
+	 * @throws NoSuchMethodException If method can't be found on target
 	 */
 	public static Method getRPCMethod(Object target, Class<?>[] serviceInterfaces, Method method) throws NoSuchMethodException {
 		if (serviceInterfaces.length == 0)

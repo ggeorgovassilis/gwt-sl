@@ -36,7 +36,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  * RPC to these interfaces to the service. It is possible to use custom
  * implementations of the {@link GWTRPCServiceExporter}, see
  * {@link #setServiceExporterFactory(RPCServiceExporterFactory)}. Will also pick
- * up any beans with an {@link GWTRequestHandlerMapping} annotation and publish
+ * up any beans with an {@link RemoteServiceRelativePath} annotation and publish
  * it under the specified URL.
  * 
  * 
@@ -63,7 +63,7 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 	/**
 	 * Should RPC check the permutation strong name? Disabled by default. If either the specified
 	 * {@link RPCServiceExporterFactory} or this flag is set, then checks will be enforced.
-	 * @param shouldCheckPermutationStrongName
+	 * @param shouldCheckPermutationStrongName true or false
 	 */
 	public void setShouldCheckPermutationStrongName(
 			boolean shouldCheckPermutationStrongName) {
@@ -152,7 +152,8 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 	/**
 	 * Set a mapping between URLs and services
 	 * 
-	 * @param mapping
+	 * @param mapping Mapping between URLs and handlers. Keys are URLs and values are anything the {@link AbstractUrlHandlerMapping#registerHandler(String, Object)}
+	 * method will accept as handlers.
 	 */
 	public void setMappings(Map<String, Object> mapping) {
 		this._mapping = mapping;
@@ -160,6 +161,7 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 
 	/**
 	 * Invoked automatically by Spring after initialisation.
+	 * @throws Exception Any Exception caused by processing
 	 */
 	public void afterPropertiesSet() throws Exception {
 		if (factory == null){
@@ -190,7 +192,7 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 	 * 		exporter.afterPropertiesSet();<br>
 	 *</code>
 	 * 
-	 * @param factory
+	 * @param factory Service exporter factory to use
 	 */
 	public void setServiceExporterFactory(RPCServiceExporterFactory factory) {
 		this.factory = factory;
@@ -200,15 +202,15 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 	 * Can be used to explicitly disable caching of RPC responses in the client
 	 * by modifying the HTTP headers of the response.
 	 * 
-	 * @param disableResponseCaching
+	 * @param disableResponseCaching True if response caching should be disabled
 	 */
 	public void setDisableResponseCaching(boolean disableResponseCaching) {
 		this.disableResponseCaching = disableResponseCaching;
 	}
 
 	/**
-	 * @see {@link RPCServiceExporter#setThrowUndeclaredExceptionToServletContainer(boolean)}
-	 * @param throwUndeclaredExceptionToServletContainer
+	 * @see RPCServiceExporter#setThrowUndeclaredExceptionToServletContainer(boolean)
+	 * @param throwUndeclaredExceptionToServletContainer True if undeclared exceptions should be passed on
 	 */
 	public void setThrowUndeclaredExceptionToServletContainer(
 			boolean throwUndeclaredExceptionToServletContainer) {
@@ -217,6 +219,7 @@ public class GWTHandler extends AbstractUrlHandlerMapping implements
 
 	/**
 	 * Setter for servlet configuration
+	 * @param servletConfig Servlet configuration to use
 	 */
 	public void setServletConfig(ServletConfig servletConfig) {
 		this.servletConfig = servletConfig;

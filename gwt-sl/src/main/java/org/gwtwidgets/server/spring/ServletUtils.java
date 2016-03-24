@@ -66,7 +66,7 @@ public class ServletUtils {
 	 * Assign the current servlet request to a thread local variable. Valid only
 	 * if used inside the invoking thread scope.
 	 * @deprecated Does not perform any operation
-	 * @param request
+	 * @param request Set the request
 	 */
 	public static void setRequest(HttpServletRequest request) {
 		throw new RuntimeException("setRequest has been deprecated");
@@ -76,7 +76,7 @@ public class ServletUtils {
 	 * Assign the current servlet response to a thread local variable. Valid
 	 * only if used inside the invoking thread scope.
 	 * 
-	 * @param response
+	 * @param response Set the response
 	 */
 	public static void setResponse(HttpServletResponse response) {
 		servletResponse.set(response);

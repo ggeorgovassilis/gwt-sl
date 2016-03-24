@@ -67,7 +67,7 @@ public class RequestInjection implements MethodInterceptor {
 	 * current request and response on the service. If the method does not exist
 	 * on the service, it is silently discarded.
 	 * 
-	 * @param setterName
+	 * @param setterName name of setter field
 	 */
 	public void setRequestSetterName(String setterName) {
 		this.requestSetterName = setterName;
@@ -78,7 +78,7 @@ public class RequestInjection implements MethodInterceptor {
 	 * current response on the service. If the method does not exist on the
 	 * service, it is silently discarded.
 	 * 
-	 * @param setterName
+	 * @param setterName Name of the response setter field
 	 */
 	public void setResponseSetterName(String setterName) {
 		this.responseSetterName = setterName;

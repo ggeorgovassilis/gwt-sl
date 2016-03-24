@@ -41,8 +41,8 @@ public class GWTSpringController extends RemoteServiceServlet implements Servlet
 	/**
 	 * Disables HTTP response caching by modifying response headers for browsers.
 	 * Can be overridden by extending classes to change behaviour.
-	 * @param request
-	 * @param response
+	 * @param request Request to pre-process. Current implementation doesn't use it.
+	 * @param response Response to process. Current implementation sets headers that tell the browser to not cache
 	 */
 	protected void preprocessHTTP(HttpServletRequest request, HttpServletResponse response){
 		ServletUtils.disableResponseCaching(response);
@@ -74,13 +74,19 @@ public class GWTSpringController extends RemoteServiceServlet implements Servlet
 	 * the dispatching thread.
 	 * 
 	 * @return the servlet response associated with the thread servicing the current RPC 
-	 * @deprecated Use {@link ServletUtils#getResponset()}
+	 * @deprecated Use {@link ServletUtils#getResponse()}
 	 */
 	@Deprecated
 	public static HttpServletResponse getResponse() {
 		return ServletUtils.getResponse();
 	}
 	
+	/**
+	 * Handles HTTP request as a POST.
+	 * @param request Request
+	 * @param response Response
+	 */
+	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
 			preprocessHTTP(request, response);

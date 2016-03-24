@@ -49,7 +49,7 @@ public class DefaultRPCServiceExporterFactory implements RPCServiceExporterFacto
 
 	/**
 	 * Should RPC check the X-GWT-Permutation headers?
-	 * @param shouldCheckStrongPermutationName
+	 * @param shouldCheckPermutationStrongName true or false
 	 */
 	public void setShouldCheckPermutationStrongName(
 			boolean shouldCheckPermutationStrongName) {

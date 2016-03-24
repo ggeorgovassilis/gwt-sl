@@ -31,7 +31,7 @@ public interface RPCServiceExporter extends Controller, InitializingBean, Servle
 
 	/**
 	 * Set the service object to which RPCs should be delegated.
-	 * @param service
+	 * @param service Service object to delegate to
 	 */
 	void setService(Object service);
 	
@@ -43,21 +43,21 @@ public interface RPCServiceExporter extends Controller, InitializingBean, Servle
 	
 	/**
 	 * Set state of response caching
-	 * @param caching
+	 * @param caching caching
 	 */
 	void setResponseCachingDisabled(boolean caching);
 	
 	/**
 	 * When enabled will throw exceptions which originate from the service and have not been
 	 * declared in the RPC interface back to the servlet container.
-	 * @param throwUndeclaredExceptionToServletContainer 
+	 * @param throwUndeclaredExceptionToServletContainer True or false
 	 */
 	void setThrowUndeclaredExceptionToServletContainer(boolean throwUndeclaredExceptionToServletContainer);
 
 	/**
 	 * Specify whether {@link RemoteServiceServlet#checkPermutationStrongName} should be invoked
 	 * for the current request. Disabled by default for backwards compatibility with older SL versions.
-	 * @param shouldCheckPermutationStrongName
+	 * @param shouldCheckPermutationStrongName true or false
 	 */
 	void setShouldCheckPermutationStrongName(boolean shouldCheckPermutationStrongName);
 

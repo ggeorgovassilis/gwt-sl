@@ -45,8 +45,8 @@ import com.google.gwt.user.server.rpc.RPC;
 import com.google.gwt.user.server.rpc.SerializationPolicy;
 
 /**
- * This component publishes an object (see {@link #setService(Object)}) as a
- * service to the GWT RPC protocol. Service targets can be:<p/>
+ * <p>This component publishes an object (see {@link #setService(Object)}) as a
+ * service to the GWT RPC protocol. Service targets can be:</p>
  * <ul>
  * <li>POJOs which don't have to extend any class or implement any interface.
  * However you should provide a service interface (see
@@ -55,10 +55,10 @@ import com.google.gwt.user.server.rpc.SerializationPolicy;
  * <li>You can extend the GWTRPCServiceExporter which assigns the target
  * service to itself.</li>
  * </ul>
- * <p/>
+ * <p>
  * Exceptions directly thrown from the target service are propagated back to the
  * client. For special exception handling you can override the various <code>handle</code>*
- * methods which are invoked by the GWTRPCServiceExporter.
+ * methods which are invoked by the GWTRPCServiceExporter.</p>
  * 
  * @author George Georgovassilis, g.georgovassilis[at]gmail.com
  * @author Max Jonas Werner
@@ -128,7 +128,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 
 	/**
 	 * Return the set serialization flags (see {@link AbstractSerializationStream#getFlags()}
-	 * @return
+	 * @return Active serialization flags
 	 */
 	public int getSerializationFlags() {
 		return serializationFlags;
@@ -137,7 +137,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	/**
 	 * Set serialization flags (see {@link AbstractSerializationStream#getFlags()}. Default value is
 	 * {@link AbstractSerializationStream#DEFAULT_FLAGS}
-	 * @param serializationFlags
+	 * @param serializationFlags Serialization flags to use
 	 */
 	public void setSerializationFlags(int serializationFlags) {
 		this.serializationFlags = serializationFlags;
@@ -167,9 +167,9 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 
 	/**
 	 * Disables HTTP response caching by modifying response headers for browsers.
-	 * Can be overridden by extending classes to change behaviour.
-	 * @param request
-	 * @param response
+	 * Can be overridden by extending classes to change behavior.
+	 * @param request Request to preprocess
+	 * @param response Response to preprocess
 	 */
 	protected void preprocessHTTP(HttpServletRequest request, HttpServletResponse response){
 		if (disableResponseCaching)
@@ -179,7 +179,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	/**
 	 * Returns the installed serialization policy provider. If none other was specified,
 	 * the {@link DefaultSerializationPolicyProvider} is used
-	 * @return
+	 * @return Serialization provider used
 	 */
 	public SerializationPolicyProvider getSerializationPolicyProvider() {
 		return serializationPolicyProvider;
@@ -187,7 +187,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 
 	/**
 	 * Assign a new serialization policy provider.
-	 * @param serializationPolicyProvider
+	 * @param serializationPolicyProvider GWT RPC serialization policy registry
 	 */
 	public void setSerializationPolicyProvider(
 			SerializationPolicyProvider serializationPolicyProvider) {
@@ -198,7 +198,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * Implementation of {@link ServletContextAware}, is invoked by the Spring
 	 * application context.
 	 * 
-	 * @param servletContext
+	 * @param servletContext ServletContext to use
 	 */
 	public void setServletContext(ServletContext servletContext) {
 		this.servletContext = servletContext;
@@ -238,7 +238,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * @param rpcRequest
 	 *            RPCRequest instance for this request
 	 * @return Return RPC encoded result.
-	 * @throws Exception
+	 * @throws Exception Any exception caused in serialization
 	 */
 	protected String invokeMethodOnService(Object service, Method targetMethod, Object[] targetParameters,
 			RPCRequest rpcRequest) throws Exception {
@@ -256,8 +256,9 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * 
 	 * @param e
 	 *            Exception thrown
-	 * @param service
-	 * @param targetMethod
+	 * @param service Service object that raised exception
+	 * @param targetMethod Method that raised exception
+	 * @param rpcRequest Request that caused exception
 	 * @return RPC encoded response (such as an RPC client exception)
 	 */
 	protected String handleIllegalArgumentException(IllegalArgumentException e, Object service, Method targetMethod,
@@ -276,8 +277,9 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * 
 	 * @param e
 	 *            Exception thrown
-	 * @param service
-	 * @param targetMethod
+	 * @param service Service that raised exception
+	 * @param targetMethod method that raised exception
+	 * @param rpcRequest Request that raised exception
 	 * @return RPC encoded response (such as an RPC client exception)
 	 */
 	protected String handleIllegalAccessException(IllegalAccessException e, Object service, Method targetMethod,
@@ -295,7 +297,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * @param targetMethod Method which threw the exception
 	 * @param targetParameters Method arguments  
 	 * @return RPC payload
-	 * @throws Exception
+	 * @throws SerializationException Exception caused by RPC serialization
 	 */
 	protected String encodeResponseForFailure(RPCRequest rpcRequest, Throwable cause, Method targetMethod, Object[] targetParameters) throws SerializationException{
 		SerializationPolicy serializationPolicy = getSerializationPolicyProvider().getSerializationPolicyForFailure(rpcRequest, service, targetMethod, targetParameters, cause);
@@ -312,12 +314,12 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * 
 	 * @param e
 	 *            Exception thrown
-	 * @param service
-	 * @param targetMethod
-	 * @param parameters
-	 * @param rpcRequest
+	 * @param service Service that caused exception
+	 * @param targetMethod Method that raised exception
+	 * @param parameters Method parameters
+	 * @param rpcRequest GWT RPC request
 	 * @return RPC payload
-	 * @throws Exception
+	 * @throws Exception Any exception that may occur during RPC serialization
 	 */
 	protected String handleInvocationTargetException(InvocationTargetException e, Object service, Method targetMethod, Object[] parameters,
 			RPCRequest rpcRequest) throws Exception {
@@ -338,11 +340,11 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * 
 	 * @param e
 	 *            Exception thrown
-	 * @param service
-	 * @param targetMethod
-	 * @param rpcRequest
+	 * @param service Service object
+	 * @param targetMethod Method that caused the exception
+	 * @param rpcRequest GWT request
 	 * @return RPC payload
-	 * @throws Exception
+	 * @throws Exception Exactly e
 	 */
 	protected String handleServiceException(Exception e, Object service, Method targetMethod, RPCRequest rpcRequest)
 			throws Exception {
@@ -358,11 +360,11 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * 
 	 * @param e
 	 *            Exception thrown
-	 * @param service
-	 * @param targetMethod
-	 * @param rpcRequest
+	 * @param service Service that caused exception
+	 * @param targetMethod Method that raised exception
+	 * @param rpcRequest RPC request that was processed
 	 * @return RPC payload
-	 * @throws Exception
+	 * @throws Exception Exactly e
 	 */
 	protected String handleUndeclaredThrowableException(Exception e, Object service, Method targetMethod,
 			RPCRequest rpcRequest) throws Exception {
@@ -376,7 +378,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * @param decodedMethod
 	 *            Method as determined by RPC
 	 * @return Method to invoke.
-	 * @throws NoSuchMethodException
+	 * @throws NoSuchMethodException In case method isn't found on service
 	 */
 	protected Method getMethodToInvoke(Method decodedMethod) throws NoSuchMethodException {
 		// Synchronization is unnecessary here, the worst thing that can happen
@@ -431,10 +433,10 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * {@link IncompatibleRemoteServiceException}. This implementation
 	 * propagates the exception back to the client via RPC.
 	 * 
-	 * @param e
+	 * @param cause
 	 *            Exception thrown
 	 * @return RPC encoded failure response
-	 * @throws SerializationException
+	 * @throws SerializationException If problems during serialization of cause to RPC
 	 */
 	protected String handleIncompatibleRemoteServiceException(IncompatibleRemoteServiceException cause)
 			throws SerializationException {
@@ -449,7 +451,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * thrown by those handlers. This implementation wraps 'e' in a
 	 * {@link RuntimeException} which is then thrown.
 	 * 
-	 * @param e
+	 * @param e Exception
 	 * @return RPC encoded failure response
 	 */
 	protected String handleExporterProcessingException(Exception e) {
@@ -468,8 +470,14 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 
 	/**
 	 * Implementation of inherited interface
-	 * @see {@link HttpRequestHandler#handleRequest(HttpServletRequest, HttpServletResponse)}
+	 * @param request Request
+	 * @param response Response
+	 * @return {@link ModelAndView}
+	 * @throws ServletException Exception
+	 * @throws IOException Exception
+	 * @see HttpRequestHandler#handleRequest(HttpServletRequest, HttpServletResponse)
 	 */
+	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException,
 			IOException {
 		try {
@@ -491,7 +499,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	 * as long as no method is invoked which has a different/missing signature in the interface
 	 * and the service implementation.
 	 * 
-	 * @param serviceInterfaces
+	 * @param serviceInterfaces List of interfaces
 	 */
 	public void setServiceInterfaces(Class<RemoteService>[] serviceInterfaces) {
 		this.serviceInterfaces = serviceInterfaces;
@@ -541,11 +549,11 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 
 	/**
 	 * Enables or disables compression of RPC output. Defaults to
-	 * {@link #COMPRESSION_AUTO}. Allowed values are
+	 * {@link #COMPRESSION_AUTO}. 
+	 * 
+	 * @param compressResponse Allowed values are
 	 * {@link #COMPRESSION_ENABLED}, {@link #COMPRESSION_DISABLED} and
 	 * {@link #COMPRESSION_AUTO}.
-	 * 
-	 * @param compressResponse
 	 */
 	protected void setCompressResponse(int compressResponse) {
 		if (compressResponse != COMPRESSION_ENABLED && compressResponse != COMPRESSION_DISABLED && compressResponse != COMPRESSION_AUTO)
@@ -556,7 +564,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 	/**
 	 * Can be used to set HTTP response headers that explicitly disable caching on the browser side.
 	 * Note that due to the additional headers the response size increases.
-	 * @param responseCaching
+	 * @param disableResponseCaching disableResponseCaching
 	 */
 	public void setResponseCachingDisabled(boolean disableResponseCaching) {
 		this.disableResponseCaching = disableResponseCaching;
