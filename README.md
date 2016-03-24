@@ -1,4 +1,4 @@
-Server Library for GWT- Reference Documentation v1.5
+Server Library for GWT- Reference Documentation v1.7
 ======
 
 The GWT Server Library is a collection of Java server side components for the Google Web Toolkit AJAX framework with the current focus on the Spring framework by facilitating publishing of Spring beans as RPC services.
@@ -41,6 +41,12 @@ This project used to be hosted at Sourceforge as part of the [GWT Widget Library
 * [6. Links and Resources](#Resources)
 
 ## <a name="Changelog"></a>1. Changelog
+
+#### GWT-SL 1.7
+
+* Upgraded dependencies: GWT 2.7.0, Spring 4.2.5
+* Automated integration testing
+* Cleaned up Javadocs
 
 #### GWT-SL 1.5
 
@@ -286,7 +292,7 @@ And this dependency:
 <dependency>
 	<groupId>net.sf.gwt-widget</groupId>
 	<artifactId>gwt-sl</artifactId>
-	<version>1.5</version>
+	<version>1.7</version>
 </dependency>
 ```
 We'll briefly cover the steps necessary to publish a simple Spring managed bean so that a GWT client can communicate with it over RPC. There are several ways of
