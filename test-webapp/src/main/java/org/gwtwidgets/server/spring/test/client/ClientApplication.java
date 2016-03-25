@@ -27,9 +27,9 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
-
 
 /**
  * Unit test client side application. Looks up three versions of the test
@@ -39,13 +39,15 @@ import com.google.gwt.user.client.ui.RootPanel;
  * @author George Georgovassilis, g.georgovassilis[at]gmail.com
  * 
  */
-public class ClientApplication implements EntryPoint{
+public class ClientApplication implements EntryPoint {
 
 	private Date testStartTimestamp;
-	
+
 	private int lastRandomNumber = 0;
 	private int randomInvocation = 0;
-	
+	private FlowPanel currentPanel;
+	private int testChapterCounter = 0;
+
 	private void startTiming() {
 		testStartTimestamp = new Date();
 	}
@@ -54,32 +56,23 @@ public class ClientApplication implements EntryPoint{
 		Date now = new Date();
 		log(entry + ": " + (now.getTime() - testStartTimestamp.getTime() + "ms"));
 	}
+	
+	private void startNewTestChapter(String title){
+		currentPanel = new FlowPanel();
+		currentPanel.getElement().setId("test_"+(testChapterCounter++));
+		RootPanel.get("testarea").add(currentPanel);
+		log("<h2>"+title+"</h2>");
+	}
 
-	String testUrls[] = { 
-			"../handler/service", 
-			"../handler/tx", 
-			"../handler/pojo", 
-			"../handler/extended", 
-			"../exporter/service", 
-			"../exporter/tx",
-			"../exporter/pojo",
-			"../exporter/extended",
-			"../annotation/service",
-			"../exporter/pojo"
-			};
+	String testUrls[] = { "../handler/service", "../handler/tx", "../handler/pojo", "../handler/extended",
+			"../exporter/service", "../exporter/tx", "../exporter/pojo", "../exporter/extended",
+			"../annotation/service", "../exporter/pojo", "../exporter/pojo", "../exporter/pojo" };
 
-	String testLabel[] = { 
-			"GWTHandler with RPC service", 
-			"GWTHandler with transaction RPC service", 
-			"GWTHandler with POJO service", 
-			"GWTHandler with extending service",
-			"GWTRPCServiceExporter with RPC service", 
-			"GWTRPCServiceExporter transaction RPC service",
-			"GWTRPCServiceExporter POJO service", 
-			"GWTRPCServiceExporter extending service", 
-			"Annotated service",
-			"GWTRPCServiceExporter POJO service"
-			};
+	String testLabel[] = { "GWTHandler with RPC service", "GWTHandler with transaction RPC service",
+			"GWTHandler with POJO service", "GWTHandler with extending service",
+			"GWTRPCServiceExporter with RPC service", "GWTRPCServiceExporter transaction RPC service",
+			"GWTRPCServiceExporter POJO service", "GWTRPCServiceExporter extending service", "Annotated service",
+			"GWTRPCServiceExporter POJO service" };
 
 	int testIndex = 0;
 
@@ -88,15 +81,17 @@ public class ClientApplication implements EntryPoint{
 	}
 
 	void log(String text) {
-		RootPanel.get("testarea").add(new HTML("("+testIndex+") "+text));
+		HTML html = new HTML("(" + testIndex + ") " + text);
+		currentPanel.add(html);
+		html.getElement().scrollIntoView();
 	}
 
 	void fail(String text, Throwable t) {
-		RootPanel.get("testarea").add(new HTML("<span style='color:red'>" + text + "</span>"));
-		if (t!=null)
-			RootPanel.get("testarea").add(new HTML("<pre>" + t + "</pre>"));
+		log("<span class='error' style='color:red'>" + text + "</span>");
+		if (t != null)
+			log("<pre>" + t + "</pre>");
 		GWT.log(text, t);
-		throw (t==null?new RuntimeException("Test failed"):new RuntimeException(t));
+		throw (t == null ? new RuntimeException("Test failed") : new RuntimeException(t));
 	}
 
 	TestServiceAsync getService() {
@@ -107,15 +102,15 @@ public class ClientApplication implements EntryPoint{
 		endpoint.setServiceEntryPoint(moduleRelativeURL);
 		return service;
 	}
-	
+
 	void testsDone() {
 		log("<h2>Tests finished successfully</h2>");
 		logTiming("Tests finished in ");
 	}
 
-	//check
+	// check
 	void testAdd() {
-		log("<h2>Testing " + testLabel[testIndex] + "</h2>");
+		startNewTestChapter("Testing " + testLabel[testIndex]);
 		log("Test1: invoking add(3,4)");
 		TestServiceAsync service = getService();
 		service.add(3, 4, new AsyncCallback<Integer>() {
@@ -134,7 +129,7 @@ public class ClientApplication implements EntryPoint{
 		});
 	}
 
-	//check
+	// check
 	void testSession() {
 
 		final String newString = newRandomString();
@@ -156,7 +151,7 @@ public class ClientApplication implements EntryPoint{
 		});
 	}
 
-	//check
+	// check
 	void testSessionAlt() {
 
 		final String newString = newRandomString();
@@ -178,7 +173,7 @@ public class ClientApplication implements EntryPoint{
 		});
 	}
 
-	//check
+	// check
 	void testExpectedValue(final String expectedSessionValue) {
 
 		log("Test4: Retrieving a current session attribute and storing a new one.");
@@ -203,7 +198,7 @@ public class ClientApplication implements EntryPoint{
 		});
 	}
 
-	//check
+	// check
 	void testException() {
 
 		log("Test5: Testing for exception translation.");
@@ -223,12 +218,12 @@ public class ClientApplication implements EntryPoint{
 			}
 
 			public void onSuccess(Object result) {
-				fail("Test5 failed, expected a SerializableException.",null);
+				fail("Test5 failed, expected a SerializableException.", null);
 			}
 		}));
 	}
-	
-	//check
+
+	// check
 	void testCustomException() {
 
 		log("Test5b: Testing for custom exception serialisability.");
@@ -259,10 +254,9 @@ public class ClientApplication implements EntryPoint{
 		}));
 	}
 
-
-	//check
+	// check
 	void testGWTSerialisable() {
-		log("<h2>Testing IsSerializable compatibility</h2>");
+		startNewTestChapter("Testing IsSerializable compatibility");
 		TestServiceAsync test = getService();
 		GWTSerialisableObject o = new GWTSerialisableObject();
 		o.setString("STRING");
@@ -273,7 +267,7 @@ public class ClientApplication implements EntryPoint{
 				fail("Test failed:" + exception, exception);
 			}
 
-			public void onSuccess(GWTSerialisableObject  o) {
+			public void onSuccess(GWTSerialisableObject o) {
 				GWTSerialisableObject o1 = (GWTSerialisableObject) o;
 				if (!"string".equals(o1.getString()) || o1.getNumber() != 3) {
 					fail("Test failed with unexpected return values", null);
@@ -286,9 +280,10 @@ public class ClientApplication implements EntryPoint{
 		});
 	}
 
-	//check
+	// check
 	void testJavaSerialisable() {
-		log("<h2>Testing Serializable compatibility</h2>");
+		testIndex++;
+		startNewTestChapter("Testing Serializable compatibility");
 		TestServiceAsync test = getService();
 		JavaSerialisableObject o = new JavaSerialisableObject();
 		o.setString("STRING");
@@ -310,25 +305,26 @@ public class ClientApplication implements EntryPoint{
 
 		});
 	}
-	
-	
-	//check
-	void testResponseCaching(){
-		log("<h2>Testing that RPC responses are not cached</h2>");
+
+	// check
+	void testResponseCaching() {
+		testIndex++;
+		startNewTestChapter("Testing that RPC responses are not cached");
 		final TestServiceAsync test = getService();
-		AsyncCallback<Integer> callback = new AsyncCallback<Integer>(){
+		AsyncCallback<Integer> callback = new AsyncCallback<Integer>() {
 			public void onFailure(Throwable exception) {
 				fail("Test failed:" + exception, exception);
 			}
+
 			public void onSuccess(Integer value) {
-				log("run "+randomInvocation+": last value = "+lastRandomNumber+" current value "+value);
-				switch (randomInvocation){
+				log("run " + randomInvocation + ": last value = " + lastRandomNumber + " current value " + value);
+				switch (randomInvocation) {
 				case 0:
 					test.getRandomNumber(this);
 					break;
 				case 1:
 				case 2:
-					if (value.equals(lastRandomNumber)){
+					if (value.equals(lastRandomNumber)) {
 						fail("RPC returned same number twice", null);
 						return;
 					}
@@ -342,11 +338,10 @@ public class ClientApplication implements EntryPoint{
 				randomInvocation++;
 				lastRandomNumber = value;
 			}
-			
+
 		};
 		test.getRandomNumber(callback);
 	}
-	
 
 	public void onModuleLoad() {
 		startTiming();

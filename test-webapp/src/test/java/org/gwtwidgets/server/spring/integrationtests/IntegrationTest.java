@@ -20,8 +20,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import static org.junit.Assert.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Integration test that runs a tomcat, deploys the GWT web applications,
@@ -115,10 +113,9 @@ public class IntegrationTest extends BaseIntegrationTest{
 		assertTrue(p.contains("(8) Test5 success"));
 		assertTrue(p.contains("(8) Test5b success"));
 		
-		assertTrue(p.contains("Testing IsSerializable compatibility\n(9) Test success"));
-		assertTrue(p.contains("Testing Serializable compatibility\n(9) Test success"));
-		Matcher m=Pattern.compile("Testing that RPC responses are not cached.*\\(9\\) Test success",Pattern.DOTALL|Pattern.MULTILINE).matcher(p);
-		assertTrue(m.find());
+		assertTrue(p.contains("(9) Test success"));
+		assertTrue(p.contains("(10) Test success"));
+		assertTrue(p.contains("(11) Test success"));
 	}
 
 }
