@@ -4,16 +4,13 @@
                         http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.sf.gwt-widget</groupId>
 	<artifactId>test-webapp</artifactId>
+	<version>1.7</version>
 	<packaging>war</packaging>
 	<description>
 		Test project for the gwt-sl. Don't include this as a dependency or anything else.
 	</description>
-	<parent>
-		<groupId>net.sf.gwt-widget</groupId>
-		<artifactId>gwt-sl-parent</artifactId>
-		<version>1.7-SNAPSHOT</version>
-	</parent>
 
 	<properties>
 		<java.version>1.7</java.version>
@@ -21,7 +18,7 @@
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<slf4j.version>1.7.13</slf4j.version>
 		<tomcat.version>8.0.30</tomcat.version>
-		<gwt-sl.version>1.7-SNAPSHOT</gwt-sl.version>
+		<gwt-sl.version>1.7</gwt-sl.version>
 	</properties>
 
 	<dependencies>

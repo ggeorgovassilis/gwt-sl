@@ -15,7 +15,7 @@
 	</parent>
 
 	<url>https://github.com/ggeorgovassilis/gwt-sl</url>
-	<version>1.7-SNAPSHOT</version>
+	<version>1.7</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
