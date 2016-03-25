@@ -386,7 +386,8 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 		if (method != null)
 			return method;
 		method = ReflectionUtils.getRPCMethod(service, serviceInterfaces, decodedMethod);
-		return methodCache.put(decodedMethod, method);
+		methodCache.put(decodedMethod, method);
+		return method;
 	}
 	
 
@@ -402,6 +403,7 @@ public class GWTRPCServiceExporter extends RemoteServiceServlet implements RPCSe
 			RPCRequest rpcRequest = RPC.decodeRequest(payload, null, this);
 			onAfterRequestDeserialized(rpcRequest);
 			Method targetMethod = getMethodToInvoke(rpcRequest.getMethod());
+			
 			Object[] targetParameters = rpcRequest.getParameters();
 
 			try {
