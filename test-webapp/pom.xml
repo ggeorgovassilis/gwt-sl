@@ -4,17 +4,18 @@
                         http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.gwt-widget</groupId>
 	<artifactId>test-webapp</artifactId>
 	<packaging>war</packaging>
-	<url>https://github.com/ggeorgovassilis/gwt-sl</url>
-	<version>1.7</version>
 	<description>
 		Test project for the gwt-sl. Don't include this as a dependency or anything else.
 	</description>
+	<parent>
+		<groupId>net.sf.gwt-widget</groupId>
+		<artifactId>gwt-sl-parent</artifactId>
+		<version>1.7-SNAPSHOT</version>
+	</parent>
 
 	<properties>
-		<github.global.server>github</github.global.server>
 		<java.version>1.7</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.5.RELEASE</spring.version>
@@ -23,29 +24,7 @@
 		<gwt-sl.version>1.7-SNAPSHOT</gwt-sl.version>
 	</properties>
 
-
-
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>ggeorgovassilis</id>
-			<name>George Georgovassilis</name>
-			<email>g.georgovassilis_gmail.com</email>
-			<url>http://georgovassilis.blogspot.com/</url>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-	</developers>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

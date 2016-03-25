@@ -4,50 +4,23 @@
                         http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>net.sf.gwt-widget</groupId>
 	<artifactId>gwt-sl</artifactId>
 	<name>gwt-sl</name>
 	<packaging>jar</packaging>
+	<parent>
+		<groupId>net.sf.gwt-widget</groupId>
+		<artifactId>gwt-sl-parent</artifactId>
+		<version>1.7-SNAPSHOT</version>
+	</parent>
 	
 	<properties>
 		<github.global.server>github</github.global.server>
 		<java.version>1.7</java.version>
 	</properties>
-	
 
-	<url>https://github.com/ggeorgovassilis/gwt-sl</url>
-	<version>1.7-SNAPSHOT</version>
 	<description>
 		The Server Library for GWT is a collection of Java server side components for the Google Web Toolkit AJAX framework with the focus on the Spring framework by facilitating publishing of Spring beans as RPC services with support for Hibernate-managed entities.
 	</description>
-
-	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/gwt-sl/issues/list</url>
-	</issueManagement>
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>ggeorgovassilis</id>
-			<name>George Georgovassilis</name>
-			<email>g.georgovassilis_gmail.com</email>
-			<url>http://georgovassilis.blogspot.com/</url>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-	</developers>
-	<scm>
-		<connection>scm:git:git@github.com:ggeorgovassilis/gwt-sl.git</connection>
-		<developerConnection>scm:git:git@github.com:ggeorgovassilis/gwt-sl.git</developerConnection>
-		<url>git@github.com:ggeorgovassilis/gwt-sl.git</url>
-	</scm>
 
 	<distributionManagement>
 		<repository>
@@ -164,9 +137,4 @@
 		</plugins>
 	</build>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 </project>
