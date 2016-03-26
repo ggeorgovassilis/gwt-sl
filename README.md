@@ -251,7 +251,7 @@ New features:
 
 The Server Library for GWT (in short SL) is a collection of Java server side components for the Google Web Toolkit AJAX framework
 with the current focus on the Spring framework by facilitating publishing of Spring beans as RPC services. The main
-binary dependencies are GWT 2.6.1 and Spring 3.2.x (older versions may work too).
+binary dependencies are GWT 2.7.0 and Spring 4.2.5 (other versions may work too).
 
 The Spring Framework is an established component framework for web applications that span
 authentication, database access and complex page flow. Through its aspect oriented approach
@@ -261,8 +261,8 @@ presentation is rendered. This is the ideal base for a GWT application, which al
 presentation (widgets that run in the browser) from the business logic (RPC services
 running on the web server) from the data model (the objects serialized over RPC).
 
-GWT binds java methods to RPC calls by using the Servlet API so that
-each service you write is a servlet.The Servlet API however is rather crude and the servlet
+GWT binds Java methods to RPC calls by using the Servlet API so that
+each service you write is a servlet. The Servlet API however is rather crude and the servlet
 container (like Tomcat) is a gross environment providing little assistance to elaborate tasks
 like transaction management, AOP tasks (authentication, logging, per-task caching) etc. Also
 the notoriously scarce configuration abilities are by far inferior to Spring's XML
@@ -272,7 +272,9 @@ which act as GWT services, taking full advantage of both frameworks.
 
 ### <a name="Quickstart"></a>2.1. Quickstart
 
-Get it with maven by specifying first the GWT-SL repository:
+The binary can be [downloaded here](https://github.com/ggeorgovassilis/gwt-sl/blob/mvn-repo/net/sf/gwt-widget/gwt-sl/1.7/gwt-sl-1.7.jar?raw=true). At the time of this writing the SL isn't available on a central artifact repository, but there
+is a private repository on Github:
+
 ```xml
 <repositories>
 	<repository>
